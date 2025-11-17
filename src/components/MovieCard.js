@@ -1,6 +1,6 @@
 import "../styles.css";
 
-export default function MoviesGrid({ movie }) {
+export default function MoviesGrid({ movie, isWatchisted, toggleWatchlist }) {
   const handleError = (e) => {
     e.target.src = "images/default.jpg"; // Fallback image
   };
@@ -20,10 +20,24 @@ export default function MoviesGrid({ movie }) {
       />
       <div className="movie-card-info">
         <h3 className="movie-card-title">{movie.title}</h3>
-        <p className="movie-card-genre">{movie.genre}</p>
-        <p className={`movie-card-rating ${getRatingClass(movie.rating)}`}>
-          {movie.rating}
-        </p>
+        <div>
+          <span className="movie-card-genre">{movie.genre}</span>
+          <span className={`movie-card-rating ${getRatingClass(movie.rating)}`}>
+            {movie.rating}
+          </span>
+        </div>
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={isWatchisted}
+            onChange={() => toggleWatchlist(movie.id)}
+          />
+          <span className="slider">
+            <span className="slider-label">
+              {isWatchisted ? "In WatchList" : "Add to Watchlist"}
+            </span>
+          </span>
+        </label>
       </div>
     </div>
   );
